@@ -41,3 +41,58 @@ function DeleteOneItem(MyMongoClient) {
 
     })
 }
+
+function DeleteAllItem(MyMongoClient) {
+    var MyDatabase = MyMongoClient.db("node-mongodb");
+    var MyCollection = MyDatabase.collection('table_name');
+
+    MyCollection.deletemany(function (error, resultObj) {
+        if (error) {
+            console.log("Delete Failed!");
+        } else {
+            console.log("Delete Success");
+            console.log(resultObj.result.n + " Item Deleted!");
+        }
+
+    })
+}
+
+function FindOneWithoutCondition(MyMongoClinet) {
+    var MyDatabase = MyMongoClient.db("node-mongodb");
+    var MyCollection = MyDatabase.collection('table_name');
+    var FindObj = {}
+    MyCollection.findOne(FindObj, function (error, result) {
+        console.log(result);
+    })
+}
+
+function FindOneWithCondition(MyMongoClinet) {
+    var MyDatabase = MyMongoClient.db("node-mongodb");
+    var MyCollection = MyDatabase.collection('table_name');
+
+    var FindObj = { roll: "05" }
+    MyCollection.findOne(FindObj, function (error, result) {
+        console.log(result);
+    })
+}
+
+function FindAllData(MyMongoClinet) {
+    var MyDatabase = MyMongoClient.db("node-mongodb");
+    var MyCollection = MyDatabase.collection('table_name');
+
+    MyCollection.find().toArray(function (error, result) {
+        console.log(result)
+    })
+}
+
+function FindAllDataByProjection(MyMongoClinet) {
+    var MyDatabase = MyMongoClient.db("node-mongodb");
+    var MyCollection = MyDatabase.collection('table_name');
+
+    var ItemObj = {}
+    var ItemProjection = { projection: { city: "", roll: "" } }
+
+    MyCollection.find(ItemObj, ItemProjection).toArray(function (error, result) {
+        console.log(result)
+    })
+}
