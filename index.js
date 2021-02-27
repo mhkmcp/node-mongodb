@@ -96,3 +96,62 @@ function FindAllDataByProjection(MyMongoClinet) {
         console.log(result)
     })
 }
+
+function FindAllDataByQuery(MyMongoClinet) {
+    var MyDatabase = MyMongoClient.db("node-mongodb");
+    var MyCollection = MyDatabase.collection('table_name');
+
+    var Query = { roll: "01", city: "Rangpur" }
+
+    MyCollection.find(Query).toArray(function (error, result) {
+        console.log(result)
+    })
+}
+
+function FindAllDataByLimit(MyMongoClinet) {
+    var MyDatabase = MyMongoClient.db("node-mongodb");
+    var MyCollection = MyDatabase.collection('table_name');
+
+    MyCollection.find().limit(20).toArray(function (error, result) {
+        console.log(result)
+    })
+}
+
+function FindAllDataBySort(MyMongoClinet) {
+    var MyDatabase = MyMongoClient.db("node-mongodb");
+    var MyCollection = MyDatabase.collection('table_name');
+
+    var SortPattern = { roll: -1 }
+
+    MyCollection.find().sort(SortPattern).toArray(function (error, result) {
+        console.log(result)
+    })
+}
+
+function UpdateMyData(MyMongoClinet) {
+    var MyDatabase = MyMongoClient.db("node-mongodb");
+    var MyCollection = MyDatabase.collection('table_name');
+
+    var MyQuery = { roll: "4" };
+    var MyNewValues = { $set: { name: "Rabbil Hasan Rupom", city: "Gaibandha" } }
+
+    MyCollection.updateOne(MyQuery, MyNewValues, function (error, result) {
+        console.log(result);
+    })
+}
+
+function CreateMyCollection(MyMongoClinet) {
+    var MyDatabase = MyMongoClient.db("node-mongodb");
+    MyDataBase.createCollection("teachers", function (error, result) {
+        console.log(result);
+    })
+}
+
+function DeleteMyCollection(MyMongoClinet) {
+    var MyDatabase = MyMongoClient.db("node-mongodb-test");
+
+    MyDataBase.dropCollection("teachers", function (error, result) {
+        console.log(result);
+    })
+
+}
